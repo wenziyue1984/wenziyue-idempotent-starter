@@ -6,7 +6,7 @@
     <!-- 认证信息：用于部署到 GitHub Packages -->
     <servers>
         <server>
-            <id>github-idempotent</id>
+            <id>github</id>
             <username>${env.GITHUB_ACTOR}</username>         <!-- 自动注入当前 GitHub 用户名 -->
             <password>${env.GITHUB_TOKEN}</password>         <!-- 自动注入 GITHUB_TOKEN，无需手动配置 -->
         </server>
