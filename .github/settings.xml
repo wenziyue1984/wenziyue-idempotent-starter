@@ -32,6 +32,14 @@
                     <releases><enabled>true</enabled></releases>
                     <snapshots><enabled>false</enabled></snapshots>
                 </repository>
+
+                <!-- GitHub Packages 仓库 -->
+                <repository>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/wenziyue1984/wenziyue-redis-starter</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
             </repositories>
 
             <!-- 插件仓库也配置为阿里云和中央仓库 -->
