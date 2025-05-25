@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.wenziyue</groupId>
+    <artifactId>wenziyue-idempotent-starter</artifactId>
+    <version>1.0.0</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <spring-boot.version>2.7.18</spring-boot.version>
+        <lombok.version>1.18.30</lombok.version>
+        <redis.starter.version>1.0.0</redis.starter.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <!-- redis-starter -->
+        <dependency>
+            <groupId>com.wenziyue</groupId>
+            <artifactId>wenziyue-redis-starter</artifactId>
+            <version>${redis.starter.version}</version>
+            <optional>true</optional> <!-- ✅ 让它在编译期可见，但不会传递到使用者 -->
+        </dependency>
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- 配置 GitHub Packages 仓库 -->
+    <distributionManagement>
+        <repository>
+            <id>github-idempotent</id>
+            <name>github-idempotent</name>
+            <url>https://maven.pkg.github.com/wenziyue1984/wenziyue-idempotent-starter</url>
+        </repository>
+    </distributionManagement>
+
+</project>
