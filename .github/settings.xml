@@ -6,7 +6,12 @@
     <!-- 认证信息：用于部署到 GitHub Packages -->
     <servers>
         <server>
-            <id>github</id>
+            <id>github-idempotent</id>
+            <username>${env.GITHUB_ACTOR}</username>         <!-- 自动注入当前 GitHub 用户名 -->
+            <password>${env.GITHUB_TOKEN}</password>         <!-- 自动注入 GITHUB_TOKEN，无需手动配置 -->
+        </server>
+        <server>
+            <id>github-redis</id>
             <username>${env.GITHUB_ACTOR}</username>         <!-- 自动注入当前 GitHub 用户名 -->
             <password>${env.GITHUB_TOKEN}</password>         <!-- 自动注入 GITHUB_TOKEN，无需手动配置 -->
         </server>
@@ -35,7 +40,7 @@
 
                 <!-- GitHub Packages 仓库 -->
                 <repository>
-                    <id>github</id>
+                    <id>github-redis</id>
                     <url>https://maven.pkg.github.com/wenziyue1984/wenziyue-redis-starter</url>
                     <releases><enabled>true</enabled></releases>
                     <snapshots><enabled>true</enabled></snapshots>
@@ -55,6 +60,12 @@
                     <url>https://repo.maven.apache.org/maven2</url>
                     <releases><enabled>true</enabled></releases>
                     <snapshots><enabled>false</enabled></snapshots>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>github-redis</id>
+                    <url>https://maven.pkg.github.com/wenziyue1984/wenziyue-redis-starter</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
                 </pluginRepository>
             </pluginRepositories>
         </profile>
