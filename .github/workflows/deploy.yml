@@ -1,6 +1,11 @@
 # 工作流名称：你在 GitHub Actions 页面会看到这个名称
 name: Deploy to GitHub Packages
 
+# 配置权限，保证 GitHub Actions 可以访问代码和 GitHub Packages
+permissions:
+  contents: read     # 读代码
+  packages: write    # 推送 GitHub Packages
+
 # 触发条件：当你 push 的 tag 以 v 开头（比如 v1.0.0）时触发部署
 on:
   push:
