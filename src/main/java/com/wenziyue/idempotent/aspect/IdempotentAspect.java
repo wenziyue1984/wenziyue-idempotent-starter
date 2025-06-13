@@ -78,11 +78,16 @@ public class IdempotentAspect {
         try {
             return joinPoint.proceed();
         } catch (Throwable ex) {
-            // 如果业务异常，也可以清除 Redis key（可选策略）
-            if (properties.isCleanOnError()) {
+            // 如果业务异常，清除 Redis key（可选策略，默认true）
+            if (wenziyueIdempotent.cleanOnError()) {
                 redisUtils.delete(redisKey);
             }
             throw ex;
+        } finally {
+            // 方法执行完毕，清除 Redis key（可配置，默认false）
+            if (wenziyueIdempotent.cleanOnFinish()) {
+                redisUtils.delete(redisKey);
+            }
         }
     }
 

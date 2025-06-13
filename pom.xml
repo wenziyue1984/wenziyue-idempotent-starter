@@ -6,13 +6,13 @@
 
     <groupId>com.wenziyue</groupId>
     <artifactId>wenziyue-idempotent-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <java.version>1.8</java.version>
         <spring-boot.version>2.7.18</spring-boot.version>
         <lombok.version>1.18.30</lombok.version>
-        <redis.starter.version>1.0.0</redis.starter.version>
+        <redis.starter.version>1.0.3</redis.starter.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

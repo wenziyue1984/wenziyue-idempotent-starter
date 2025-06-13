@@ -19,9 +19,4 @@ public class IdempotentProperties {
      * 默认幂等超时时间（秒）
      */
     private long defaultTimeout = 60;
-
-    /**
-     * 业务失败是否清除幂等键
-     */
-    private boolean cleanOnError = true;
 }

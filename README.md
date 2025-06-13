@@ -61,14 +61,14 @@
 <dependency>
     <groupId>com.wenziyue</groupId>
     <artifactId>wenziyue-idempotent-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0(请用最新版本)</version>
 </dependency>
 
 <!-- 必须显式引入 Redis Starter（版本自定）-->
 <dependency>
     <groupId>com.wenziyue</groupId>
     <artifactId>wenziyue-redis-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
@@ -87,9 +87,8 @@
 ```yaml
 wenziyue:
   idempotent:
-    enabled: true          # 是否启用（默认 true）
+    idempotentEnabled: true # 是否启用幂等控制（默认 true）
     default-timeout: 60    # 默认过期秒数（默认60s）
-    clean-on-error: true   # 业务异常时是否删除 Redis key（默认 true）
 ```
 
 
@@ -98,19 +97,27 @@ wenziyue:
 
 
 
-### 3. 在方法上添加注解
+### 3. 使用幂等注解@WenziyueIdempotent
 
 ```java
 @PostMapping("/order")
 @WenziyueIdempotent(
         prefix = "idempotent",			  // 幂等键前缀，用于构建 Redis key，默认idempotent
         keys = {"#dto.userId", "#dto.orderId"},   // 多字段组合
-        timeout = 30                              // 覆盖默认超时
+        timeout = 30,                             // 覆盖默认超时
+        cleanOnFinish = true,                     // 是否在方法执行完成后清理幂等键，默认为 false
+        cleanOnError = true                       // 是否在方法执行出错时清理幂等键，默认为 true
 )
 public String createOrder(@RequestBody OrderDTO dto) {
     return "下单成功：" + dto.getOrderId();
 }
 ```
+
+若cleanOnFinish=false，30 秒内相同 userId + orderId 组合的请求将被拦截。
+
+若cleanOnFinish=true，方法执行完成后，幂等键将自动被清理，下次请求将正常执行，类似于分布式锁。
+
+
 
 生成的 Redis key 类似：
 
@@ -118,16 +125,8 @@ public String createOrder(@RequestBody OrderDTO dto) {
 idempotent:OrderController:createOrder:10086:O20250101
 ```
 
-30 秒内相同 userId + orderId 组合的请求将被拦截。
 
-
-
-------
-
-
-
-### 4. 自定义重复提交处理策略（可选）
-
+自定义重复提交处理策略（可选）
 ```java
 @Component
 public class FailResultHandler implements RepeatSubmitHandler {
@@ -144,8 +143,6 @@ public class FailResultHandler implements RepeatSubmitHandler {
 @WenziyueIdempotent(keys="#request.token", handler = FailResultHandler.class)
 ```
 
-
-
 ------
 
 
@@ -158,7 +155,6 @@ public class FailResultHandler implements RepeatSubmitHandler {
 4. 若使用者引入了与 starter 不兼容的 redis-starter 版本，启动时会因 Bean 缺失报错。
 
 ------
-
 
 
 ## 📚 未来规划
