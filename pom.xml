@@ -6,29 +6,36 @@
 
     <groupId>com.wenziyue</groupId>
     <artifactId>wenziyue-idempotent-starter</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <properties>
         <java.version>1.8</java.version>
-        <spring-boot.version>2.7.18</spring-boot.version>
-        <lombok.version>1.18.30</lombok.version>
-        <redis.starter.version>1.0.3</redis.starter.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.wenziyue</groupId>
+                <artifactId>wenziyue-bom</artifactId>
+                <version>1.0.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
 
         <!-- redis-starter -->
         <dependency>
             <groupId>com.wenziyue</groupId>
             <artifactId>wenziyue-redis-starter</artifactId>
-            <version>${redis.starter.version}</version>
             <optional>true</optional> <!-- ✅ 让它在编译期可见，但不会传递到使用者 -->
         </dependency>
 
@@ -36,7 +43,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 

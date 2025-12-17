@@ -62,6 +62,7 @@ public class IdempotentAspect {
         );
 
         // 2. 检查 Redis 中是否存在
+        // TODO: 2025/8/1  改为lua脚本执行
         if (redisUtils.hasKey(redisKey)) {
             log.warn("幂等检查失败：key={} 已存在", redisKey);
             log.debug("使用的重复处理器: {}", wenziyueIdempotent.handler().getSimpleName());
