@@ -6,11 +6,12 @@
 
     <groupId>com.wenziyue</groupId>
     <artifactId>wenziyue-idempotent-starter</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <wenziyue.redis.starter.version>1.0.18</wenziyue.redis.starter.version>
     </properties>
 
     <dependencyManagement>
@@ -18,7 +19,7 @@
             <dependency>
                 <groupId>com.wenziyue</groupId>
                 <artifactId>wenziyue-bom</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.8</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -36,6 +37,7 @@
         <dependency>
             <groupId>com.wenziyue</groupId>
             <artifactId>wenziyue-redis-starter</artifactId>
+            <version>${wenziyue.redis.starter.version}</version>
             <optional>true</optional> <!-- ✅ 让它在编译期可见，但不会传递到使用者 -->
         </dependency>
 
